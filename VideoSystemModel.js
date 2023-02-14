@@ -225,7 +225,7 @@ let VideoSystem = (
                 get name() {
                     return this.Name;
                 }
-                 name(value) {
+                name(value) {
                     if (!value) throw new InvalidValueException("nombre", value);
                     this.Name = value;
                     return "Nombre cambiado";
@@ -794,7 +794,7 @@ let VideoSystem = (
                         while (index < this.#actors.length && existe == false) {
                             if (!(this.#productions[index] == production)) {
                                 cont++;
-                                pos=index;
+                                pos = index;
                             }
                             index++;
                         }
@@ -863,7 +863,7 @@ let VideoSystem = (
                         while (index < this.#actors.length && existe == false) {
                             if ((this.#productions[index] == production)) {
                                 existe = true;
-                                pos=index;
+                                pos = index;
                             }
                             index++;
                         }
@@ -977,7 +977,7 @@ let VideoSystem = (
                 }
             }
             //declaro videosystem con un nombre por defecto y lo devuelvo para poder usarlo
-            let vi=new VideoSystem("Defect");
+            let vi = new VideoSystem("Defect");
             return vi;
         } return {
             // Devuelve un objeto con el método getInstance
@@ -1177,5 +1177,6 @@ export {
     EmptyValueException,
     ParameterValidationException,
     InvalidValueException,
-    AbstractClassException
+    AbstractClassException,
+    VideoSystem
 };
