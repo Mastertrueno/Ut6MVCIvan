@@ -991,7 +991,7 @@ let VideoSystem = (
         };
     })();
 
-//test
+/* //test
 console.log("Test");
 //declaro variables
 let act = new Person("Paco", "lo", "la", "10/05/1990", "");
@@ -1170,7 +1170,7 @@ for (const iterator of v.getProductionsActor(act2)) {
 //categorias
 for (const iterator of v.getProductionsCategory(cat2)) {
     console.log(iterator);
-}
+} */
 export {
     BaseException,
     InvalidAccessConstructorException,
