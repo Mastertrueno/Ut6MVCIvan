@@ -1,13 +1,17 @@
-import { VideoSystem } from "./VideoSystemModel";
+import { VideoSystem, Category, Coordinate, Resource, User } from "./VideoSystemModel.js";
 class VideoSystemController {
     //Campos privados
     #Videosystem;
     #VideoSystemView;
 
     #loadVideoSystemObjects() {
-        let category1 = this.#Videosystem.getCategory('Accion', 'genero de accion');
-        let category2 = this.#Videosystem.getCategory('Romance', 'genero de romance');
-        let category3 = this.#Videosystem.getCategory('Misterio', 'genero de misterio');
+        let category1 = new Category('Accion', 'genero de accion');
+        let category2 = new Category('Romance', 'genero de romance');
+        let category3 = new Category('Misterio', 'genero de misterio');
+
+        let user = new User("Lu", "lume@gmail.com", "12345678");
+        let user2 = new User("Mi", "lum@gmail.com", "12345678");
+
         let act = new Person("Paco", "Mambo", "Reyes", "5/02/1993", "");
         let act2 = new Person("Rosa", "Lanza", "Torres", "17/11/1980", "");
         let act3 = new Person("Lis", "Torres", "Poveda", "22/09/1990", "");
@@ -17,14 +21,16 @@ class VideoSystemController {
         let act7 = new Person("Rocky", "Royers", "", "5/02/1993", "");
         let act8 = new Person("Ross", "Cavil", "", "18/12/1985", "");
         let act9 = new Person("Henry", "Geller", "", "28/04/1990", "");
+
         let dir = new Person("Mac", "Reyes", "Lanza", "2/08/1980", "");
         let dir2 = new Person("Rocky", "Torres", "Poveda", "10/05/1992", "");
         let dir3 = new Person("Jaime", "Piña", "Lotes", "2/08/1983", "");
         let dir4 = new Person("Guillermo", "Pantalla", "Paños", "18/07/1992", "");
-        let dir5= new Person("Emilio", "Plantas", "Caños", "2/08/1980", "");
+        let dir5 = new Person("Emilio", "Plantas", "Caños", "2/08/1980", "");
         let dir6 = new Person("Stan", "Rossbel", "", "22/04/1972", "");
-        let dir7= new Person("Jonny", "Passer", "", "1/09/1985", "");
+        let dir7 = new Person("Jonny", "Passer", "", "1/09/1985", "");
         let dir8 = new Person("Ryan", "Turner", "", "11/08/1995", "");
+
         let prod = new Movie("Las llamas", "Español", "20/03/2010", "fuego", "a", new Resource(59, "lod"), new Coordinate(48, 70));
         let prod2 = new Movie("Sparta", "Español", "20/03/2010", "esto es esparta", "a", new Resource(123, "lod"), new Coordinate(48, 70));
         let prod3 = new Serie("Mellizos", "Español", "20/03/2010", "o gemelos?", "a", new Resource(30, "lod"), new Coordinate(48, 70), 8);
@@ -42,91 +48,138 @@ class VideoSystemController {
 
 
         let Videosystem = this.#Videosystem;
-        Videosystem.addCategory(category1, category2, category3, category4);
 
-        let product1 = this.#Videosystem.getProduct(1, 'Apple', 'Laptop Model1', 1100, 'Laptop');
-        let product2 = this.#Videosystem.getProduct(2, 'Apple', 'Camera Model2', 1200, 'Camera');
-        let product3 = this.#Videosystem.getProduct(3, 'Apple', 'Smartphone Model3', 1300, 'Smartphone');
-        let product4 = this.#Videosystem.getProduct(4, 'Apple', 'Tablet Model4', 1400, 'Tablet');
-        let product5 = this.#Videosystem.getProduct(5, 'Apple', 'Laptop Model5', 1500, 'Laptop');
-        let product6 = this.#Videosystem.getProduct(6, 'HP', 'Laptop Model1', 2100, 'Laptop');
-        let product7 = this.#Videosystem.getProduct(7, 'HP', 'Camera Model2', 2200, 'Camera');
-        let product8 = this.#Videosystem.getProduct(8, 'HP', 'Tablet Model3', 2300, 'Tablet');
-        let product9 = this.#Videosystem.getProduct(9, 'HP', 'Smartphone Model4', 2400, 'Smartphone');
-        let product10 = this.#Videosystem.getProduct(10, 'HP', 'Laptop Model5', 2500, 'Laptop');
-        let product11 = this.#Videosystem.getProduct(11, 'Microsoft', 'Laptop Model1', 3100, 'Laptop');
-        let product12 = this.#Videosystem.getProduct(12, 'Microsoft', 'Camera Model2', 3200, 'Camera');
-        let product13 = this.#Videosystem.getProduct(13, 'Microsoft', 'Tablet Model3', 3300, 'Tablet');
-        let product14 = this.#Videosystem.getProduct(14, 'Microsoft', 'Smartphone Model4', 3400, 'Smartphone');
-        let product15 = this.#Videosystem.getProduct(15, 'Microsoft', 'Laptop Model5', 3500, 'Laptop');
-        let product16 = this.#Videosystem.getProduct(16, 'Samsung', 'Laptop Model1', 4100, 'Laptop');
-        let product17 = this.#Videosystem.getProduct(17, 'Samsung', 'Camera Model2', 4200, 'Camera');
-        let product18 = this.#Videosystem.getProduct(18, 'Samsung', 'Tablet Model3', 4300, 'Tablet');
-        let product19 = this.#Videosystem.getProduct(19, 'Samsung', 'Tablet Model4', 4400, 'Tablet');
-        let product20 = this.#Videosystem.getProduct(20, 'Samsung', 'Laptop Model5', 4500, 'Laptop');
+        Videosystem.addUser(act);
+        Videosystem.addUser(act2);
 
-        product1.url = `https://via.placeholder.com/258x172.jpg?text=${product1.brand}+${product1.model}`;
-        product2.url = `https://via.placeholder.com/258x172.jpg?text=${product2.brand}+${product2.model}`;
-        product3.url = `https://via.placeholder.com/258x172.jpg?text=${product3.brand}+${product3.model}`;
-        product4.url = `https://via.placeholder.com/258x172.jpg?text=${product4.brand}+${product4.model}`;
-        product5.url = `https://via.placeholder.com/258x172.jpg?text=${product5.brand}+${product5.model}`;
-        product6.url = `https://via.placeholder.com/258x172.jpg?text=${product6.brand}+${product6.model}`;
-        product7.url = `https://via.placeholder.com/258x172.jpg?text=${product7.brand}+${product7.model}`;
-        product8.url = `https://via.placeholder.com/258x172.jpg?text=${product8.brand}+${product8.model}`;
-        product9.url = `https://via.placeholder.com/258x172.jpg?text=${product9.brand}+${product9.model}`;
-        product10.url = `https://via.placeholder.com/258x172.jpg?text=${product10.brand}+${product10.model}`;
-        product11.url = `https://via.placeholder.com/258x172.jpg?text=${product11.brand}+${product11.model}`;
-        product12.url = `https://via.placeholder.com/258x172.jpg?text=${product12.brand}+${product12.model}`;
-        product13.url = `https://via.placeholder.com/258x172.jpg?text=${product13.brand}+${product13.model}`;
-        product14.url = `https://via.placeholder.com/258x172.jpg?text=${product14.brand}+${product14.model}`;
-        product15.url = `https://via.placeholder.com/258x172.jpg?text=${product15.brand}+${product15.model}`;
-        product16.url = `https://via.placeholder.com/258x172.jpg?text=${product16.brand}+${product16.model}`;
-        product17.url = `https://via.placeholder.com/258x172.jpg?text=${product17.brand}+${product17.model}`;
-        product18.url = `https://via.placeholder.com/258x172.jpg?text=${product18.brand}+${product18.model}`;
-        product19.url = `https://via.placeholder.com/258x172.jpg?text=${product19.brand}+${product19.model}`;
-        product20.url = `https://via.placeholder.com/258x172.jpg?text=${product20.brand}+${product20.model}`;
-        product1.description = 'Descripción ' + product1.model;
-        product2.description = 'Descripción ' + product2.model;
-        product3.description = 'Descripción ' + product3.model;
-        product4.description = 'Descripción ' + product4.model;
-        product5.description = 'Descripción ' + product5.model;
-        product6.description = 'Descripción ' + product6.model;
-        product7.description = 'Descripción ' + product7.model;
-        product8.description = 'Descripción ' + product8.model;
-        product9.description = 'Descripción ' + product9.model;
-        product10.description = 'Descripción ' + product10.model;
-        product11.description = 'Descripción ' + product11.model;
-        product12.description = 'Descripción ' + product12.model;
-        product13.description = 'Descripción ' + product13.model;
-        product14.description = 'Descripción ' + product14.model;
-        product15.description = 'Descripción ' + product15.model;
-        product16.description = 'Descripción ' + product16.model;
-        product17.description = 'Descripción ' + product17.model;
-        product18.description = 'Descripción ' + product18.model;
-        product19.description = 'Descripción ' + product19.model;
-        product20.description = 'Descripción ' + product20.model;
+        Videosystem.addActor(act);
+        Videosystem.addActor(act2);
+        Videosystem.addActor(act3);
+        Videosystem.addActor(act4);
+        Videosystem.addActor(act5);
+        Videosystem.addActor(act6);
+        Videosystem.addActor(act7);
+        Videosystem.addActor(act8);
+        Videosystem.addActor(act9);
 
-        Videosystem.addProductInCategory(category1, product1, product2, product3, product4, product5);
-        Videosystem.addProductInCategory(category2, product6, product7, product8, product9, product10);
-        Videosystem.addProductInCategory(category3, product11, product12, product13, product14, product15);
-        Videosystem.addProductInCategory(category4, product16, product17, product18, product19, product20);
+        Videosystem.addDirector(dir);
+        Videosystem.addDirector(dir2);
+        Videosystem.addDirector(dir3);
+        Videosystem.addDirector(dir4);
+        Videosystem.addDirector(dir5);
+        Videosystem.addDirector(dir6);
+        Videosystem.addDirector(dir7);
+        Videosystem.addDirector(dir8);
+
+        Videosystem.addCatecogy(category1);
+        Videosystem.addCatecogy(category2);
+        Videosystem.addCatecogy(category3);
+
+        Videosystem.addProduction(prod);
+        Videosystem.addProduction(prod2);
+        Videosystem.addProduction(prod3);
+        Videosystem.addProduction(prod4);
+        Videosystem.addProduction(prod5);
+        Videosystem.addProduction(prod6);
+        Videosystem.addProduction(prod7);
+        Videosystem.addProduction(prod8);
+        Videosystem.addProduction(prod9);
+        Videosystem.addProduction(prod10);
+        Videosystem.addProduction(prod11);
+        Videosystem.addProduction(prod12);
+
+        Videosystem.assignCategory(category1, prod);
+        Videosystem.assignCategory(category1, prod6);
+        Videosystem.assignCategory(category1, prod2);
+        Videosystem.assignCategory(category1, prod7);
+
+        Videosystem.assignCategory(category2, prod3);
+        Videosystem.assignCategory(category2, prod5);
+        Videosystem.assignCategory(category2, prod12);
+        Videosystem.assignCategory(category2, prod8);
+
+        Videosystem.assignCategory(category3, prod11);
+        Videosystem.assignCategory(category3, prod4);
+        Videosystem.assignCategory(category3, prod9);
+        Videosystem.assignCategory(category3, prod10);
+
+        Videosystem.assignDirector(dir, prod);
+        Videosystem.assignDirector(dir2, prod2);
+        Videosystem.assignDirector(dir3, prod3);
+        Videosystem.assignDirector(dir4, prod4);
+        Videosystem.assignDirector(dir5, prod5);
+        Videosystem.assignDirector(dir6, prod6);
+        Videosystem.assignDirector(dir7, prod7);
+        Videosystem.assignDirector(dir8, prod8);
+        Videosystem.assignDirector(dir, prod9);
+        Videosystem.assignDirector(dir2, prod10);
+        Videosystem.assignDirector(dir3, prod11);
+        Videosystem.assignDirector(dir4, prod12);
+
+        Videosystem.assignActor(act, prod);
+        Videosystem.assignActor(act2, prod);
+
+        Videosystem.assignActor(act3, prod2);
+        Videosystem.assignActor(act4, prod2);
+
+        Videosystem.assignActor(act5, prod3);
+        Videosystem.assignActor(act6, prod3);
+
+        Videosystem.assignActor(act7, prod4);
+        Videosystem.assignActor(act8, prod4);
+
+        Videosystem.assignActor(act9, prod5);
+        Videosystem.assignActor(act, prod5);
+
+        Videosystem.assignActor(act, prod6);
+        Videosystem.assignActor(act3, prod6);
+
+        Videosystem.assignActor(act2, prod7);
+        Videosystem.assignActor(act6, prod7);
+
+        Videosystem.assignActor(act4, prod8);
+        Videosystem.assignActor(act8, prod8);
+
+        Videosystem.assignActor(act5, prod9);
+        Videosystem.assignActor(act9, prod9);
+
+        Videosystem.assignActor(act7, prod10);
+        Videosystem.assignActor(act, prod10);
+
+        Videosystem.assignActor(act4, prod11);
+        Videosystem.assignActor(act2, prod11);
+
+        Videosystem.assignActor(act5, prod12);
+        Videosystem.assignActor(act8, prod12);
 
         //console.log(Videosystem.toString());
     }
     constructor(model, view) {
         this.#Videosystem = model;
-        this.#Videosystem = view;
+        this.#VideoSystemView = view;
 
         this.onLoad();
         this.onInit();
 
-        this.#Videosystem.bindInit(this.handleInit);
-        this.#Videosystem.bindProductsTypeList(this.handleProductsTypeList);
+        /* this.#Videosystem.bindInit(this.handleInit);
+        this.#Videosystem.bindProductsTypeList(this.handleProductsTypeList); */
     }
     onLoad = () => {
         this.#loadVideoSystemObjects();
-        this.#managerView.showProductTypes();
-        this.onAddCategory();
+        this.#VideoSystemView.showCategories();
+        //this.onAddCategory();
     }
+    onInit = () => {
+		this.#VideoSystemView.showCategories(this.#Videosystem.categories);
+		/* this.#VideoSystemView.bindProductsCategoryList(
+			this.handleProductsCategoryList
+		); */
+	}
+    /* onAddCategory = () => {
+		this.#VideoSystemView.showCategories(this.#VideoSystem.categories);
+		 this.#managerView.bindProductsCategoryListInMenu(
+			this.handleProductsCategoryList
+		); 
+	} */
 }
 export default VideoSystemController;

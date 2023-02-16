@@ -1171,12 +1171,22 @@ for (const iterator of v.getProductionsActor(act2)) {
 for (const iterator of v.getProductionsCategory(cat2)) {
     console.log(iterator);
 } */
-export {
+
+export default VideoSystem;
+export{
     BaseException,
     InvalidAccessConstructorException,
     EmptyValueException,
     ParameterValidationException,
     InvalidValueException,
     AbstractClassException,
-    VideoSystem
+    VideoSystem,
+    Person,
+    Category,
+    Resource,
+    Coordinate,
+    Production,
+    Movie,
+    Serie,
+    User
 };
