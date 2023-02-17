@@ -1,4 +1,4 @@
-import { VideoSystem, Category, Coordinate, Resource, User } from "./VideoSystemModel.js";
+import { VideoSystem, Category, Coordinate, Resource, User,Person,Movie,Serie } from "./VideoSystemModel.js";
 class VideoSystemController {
     //Campos privados
     #Videosystem;
@@ -34,7 +34,8 @@ class VideoSystemController {
         let prod = new Movie("Las llamas", "Español", "20/03/2010", "fuego", "a", new Resource(59, "lod"), new Coordinate(48, 70));
         let prod2 = new Movie("Sparta", "Español", "20/03/2010", "esto es esparta", "a", new Resource(123, "lod"), new Coordinate(48, 70));
         let prod3 = new Serie("Mellizos", "Español", "20/03/2010", "o gemelos?", "a", new Resource(30, "lod"), new Coordinate(48, 70), 8);
-        let prod4 = new Movie("Captura la bandera", "Español", "28/010/2019", "Una carrera a la luna a por la bandera?", "a", new Resource(82, "lod"), new Coordinate(48, 70));
+        let prod4 = new Movie("Captura la bandera", "Español", "22/04/2013", "Una carrera a la luna a por la bandera", "a", new Resource(82, "lod"), new Coordinate(48, 70));
+
 
         let prod5 = new Serie("Entre fantasmas", "EEUU", "10/02/2000", "Una mujer que puede hablar con los fantasmas", "a", new Resource(30, "lod"), new Coordinate(34, 33), 11);
         let prod6 = new Movie("Super Lopez", "Español", "30/07/2018", "Un superman español", "a", new Resource(123, "lod"), new Coordinate(48, 70));
@@ -48,9 +49,9 @@ class VideoSystemController {
 
 
         let Videosystem = this.#Videosystem;
-
-        Videosystem.addUser(act);
-        Videosystem.addUser(act2);
+        let v = VideoSystem.getInstance()
+        Videosystem.addUser(user);
+        Videosystem.addUser(user2);
 
         Videosystem.addActor(act);
         Videosystem.addActor(act2);
