@@ -745,11 +745,13 @@ let VideoSystem = (
                     if (!person) throw new EmptyValueException("person", person);
                     if (!production) throw new EmptyValueException("production", production);
                     if (!(person instanceof Person)) throw new InvalidAccessConstructorException("person", person);
+                    //console.log(this.#productions);
                     let l = 0;
                     let existe = false;
                     let pos = 0;
                     //compruebo si la categoria existe
                     while (l < this.#actors.length && existe == false) {
+                       // console.log(this.#actors[l][0].Name +" == "+person.Name)
                         if (this.#actors[l][0].Name == person.Name) {
                             //si existe guardo su posicion
                             existe = true;
@@ -791,19 +793,26 @@ let VideoSystem = (
                         //compruebo que el dato es valido
                         if (!(production instanceof Production)) throw new InvalidAccessConstructorException("production", production);
                         //compruebo si existe
-                        while (index < this.#actors.length && existe == false) {
-                            if (!(this.#productions[index] == production)) {
-                                cont++;
-                                pos = index;
+                        //console.log(production);
+                        while (index < this.#productions.length && existe == false) {
+                           /*  console.log(this.#productions[index].Title );
+                            console.log((this.#productions[index].Title == production.Title )); */
+                            if ((this.#productions[index].Title == production.Title )) {
+                               existe=true;
                             }
+                            /* console.log(this.#productions[index]);
+                            console.log(pos); */
                             index++;
                         }
                         //si existe se añade
-                        if (cont == 0) {
+                        if (!existe) {
                             this.addProduction(production);
                         }
                         //console.log(this.#categories[pos][1]) ;
                         //se añade a la categoria correspondiente
+                       /*  console.log(pos);
+                        console.log(this.#actors)
+                        console.log(this.#actors[pos]); */
                         this.#actors[pos][1].push(production);
                     }
                     return this.#actors[pos].length;

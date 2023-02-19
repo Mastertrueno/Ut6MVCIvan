@@ -49,7 +49,6 @@ class VideoSystemController {
 
 
         let Videosystem = this.#Videosystem;
-        let v = VideoSystem.getInstance()
         Videosystem.addUser(user);
         Videosystem.addUser(user2);
 
@@ -162,67 +161,82 @@ class VideoSystemController {
 
         this.onLoad();
         this.onInit();
-       // this.#VideoSystemView.bindInit(this.handleInit.bind(this));
+        // this.#VideoSystemView.bindInit(this.handleInit.bind(this));
         this.#VideoSystemView.bindInit(this.handleInit)
 
         /*
         this.#Videosystem.bindProductsTypeList(this.handleProductsTypeList); */
     }
     onLoad = () => {
-         this.#loadVideoSystemObjects();
-      /*  for (let category of this.#Videosystem.categories) {
-			console.log(category[0].Name);
-		} */
-        
+        this.#loadVideoSystemObjects();
+        /*  for (let category of this.#Videosystem.categories) {
+              console.log(category[0].Name);
+          } */
+
         this.#VideoSystemView.showCategories();
         this.onAddCategory();
     }
     onInit = () => {
-		this.#VideoSystemView.showCategories(this.#Videosystem.categories);
-		/* this.#VideoSystemView.bindProductsCategoryList(
-			this.handleProductsCategoryList
-		); */
-	}
+        this.#VideoSystemView.showCategories(this.#Videosystem.categories);
+        
+        this.#VideoSystemView.bindShowProduct(
+            this.handleProductionsTypeList
+        );
+    }
     handleInit = () => {
         this.onInit();
-       }
+    }
 
-     onAddCategory = () => {
+    onAddCategory = () => {
         for (let category of (this.#Videosystem.categories)) {
-                    console.log(category[0].Description);
-		}
-		this.#VideoSystemView.showCategoriesInMenu(this.#Videosystem.categories);
-		 this.#VideoSystemView.bindProductsCategoryListInMenu(
-			this.handleProductionsCategoryList
-		);  
-	} 
+            console.log(category[0].Description);
+        }
+        this.#VideoSystemView.showCategoriesInMenu(this.#Videosystem.categories);
+        this.#VideoSystemView.bindProductsCategoryListInMenu(
+            this.handleProductionsCategoryList
+        );
+        
+    }
 
-     handleProductionsCategoryList = (title) => {
+    handleProductionsCategoryList = (title) => {
         let category2;
         for (let category of this.#Videosystem.categories) {
             console.log(category[0]);
-			if(category[0].Name==title){
-                category2  = category[0];
+            if (category[0].Name == title) {
+                category2 = category[0];
             }
-		}
+        }
         console.log(category2);
 
-       /*  for (let category of this.#Videosystem.getProductionsCategory(category2)) {
-            console.log(category);
-			
-		} */
+        /*  for (let category of this.#Videosystem.getProductionsCategory(category2)) {
+             console.log(category);
+         	
+         } */
         //console.log(this.#Videosystem.getProductionsCategory(category2));
-		this.#VideoSystemView.listProductions(this.#Videosystem.getProductionsCategory(category2),title);
-		this.#VideoSystemView.bindShowProduct(this.handleShowProduct);
-	}
+        this.#VideoSystemView.listProductions(this.#Videosystem.getProductionsCategory(category2), title, this.#Videosystem);
+        //this.#VideoSystemView.bindShowProduct(this.handleShowProduct);
+    }
 
-	handleProductionsTypeList = (type) => {
-		if (VideoSystem[type]) {
-			this.#VideoSystemView.listProductions(this.#Videosystem.getTypeProducts(Videosystem[type]), type);
-			this.#VideoSystemView.bindShowProduct(this.handleShowProduct);
-		} else {
-			throw new Error(`${type} isn't a type of Product.`)
-		}
-	} 
+    handleProductionsTypeList = (type) => {
+        console.log("Handle");
+        console.log(VideoSystem[type]);
+        if (VideoSystem[type]) {
+            this.#VideoSystemView.listProductions(this.#Videosystem.getProductionsCategory(category2), title, this.#Videosystem);
+            this.#VideoSystemView.bindShowProduct(this.handleShowProduct);
+        } else {
+            throw new Error(`${type} isn't a type of Product.`)
+        }
+    }
+    /* handleShowProduct = (serial) => {
+        try {
+            let product = this.#manager.getProduct(Number.parseInt(serial));
+            this.#managerView.showProduct(product);
+            this.#managerView.bindShowProductInNewWindow(
+                this.handleShowProductInNewWindow
+            );
+        } catch (error){
+            this.#managerView.showProduct(null, 'No existe este producto en la página.');
+        }
+    } */
 }
 export default VideoSystemController;

@@ -67,14 +67,13 @@ class VideoSystemgerView {
 		//if (!category.done) shopping
 		for (let category of categories) {
 			container.append(`<a data-category="${category[0].Name}"
-		class="dropdown-item" href="#productlist">${category[0].Name}</a>`);
+		class="dropdown-item" href="#product-list">${category[0].Name}</a>`);
 		}
 		li.append(container);
 		this.menu.append(li);
 	}
-	listProductions(production,category) {
+	listProductions(production,category,Videosystem) {
 		this.main.empty();
-		console.log(production);
 		if (production.length > 1)
 			production.remove();
 		let container = $(`<div id="production-list" class="container my-3"><div class="row"> </div></div>`);
@@ -88,17 +87,23 @@ class VideoSystemgerView {
 				<figure class="card card-product-grid card-lg"> <a data-serial="${product.serial}" href="#single-product" class="img-wrap"><img class="${product.constructor.name}-style" src=""></a>
 					<figcaption class="info-wrap">
 						<div class="row">
-							<div class="col-md-8"> <a data-serial="${product.serial}" href="#single-product" class="title">${product.Title}</a> </div>
+							<div class="col-md-8"> <a data-serial="${product.serial}" href="#single-product" class="title"><h2>${product.Title}</h2></a> </div>
 
 						</div>
-					</figcaption>`);
-					for (let product of this.#Videosystem.getCast(product)) {
-						div+=$(`<div class="actor-wrap"> <span class="actor h5">$</span> <br> </div>`);
-					}
-					div+=$(`
+					</figcaption>
+					
 				</figure>
 			</div>`);
 			container.children().first().append(div);
+			for (let actor of Videosystem.actors) {
+				console.log(actor);
+			}
+			for (let actor of Videosystem.getCast(product)) {
+				console.log(actor);
+				console.log(actor.Name);
+				container.children().children().children().last().append(`<div class="actor-wrap"> <span class="actor h5">${actor.Name} ${actor.Lastname1}</span> <br> </div>`);
+			}
+			
 			//product = production.next();
 		}
 		container.prepend(`<h1>${category}</h1>`);
@@ -114,6 +119,7 @@ class VideoSystemgerView {
 	}
 	bindProductsCategoryListInMenu(handler) {
 		$('#navCats').next().children().click((event) => {
+			console.log((event.target));
 			let category = $(event.target).closest($('a')).get(0).dataset.category;
 			this.#excecuteHandler(
 				handler, [category],
@@ -124,21 +130,23 @@ class VideoSystemgerView {
 		});
 	}
 	 bindShowProduct(handler) {
-		$('#product-list').find('a.img-wrap').click((event) => {
-			let serial = $(event.target).closest($('a')).get(0).dataset.serial;
+		console.log($('#product-list').children());
+		$('#product-list').click((event) => {
+			console.log("aqui");
+			let category = $(event.target).closest($('a')).get(0).dataset.category;
 			this.#excecuteHandler(
-				handler, [serial],
-				'#single-product',
-				{ action: 'showProduct', serial: serial },
-				'#single-product', event
+				handler, [category],
+				'#product-list',
+				{ action: 'productsCategoryList', category: category },
+				'#category-list', event
 			);
 		});
 		$('#product-list').find('figcaption a').click((event) => {
 			this.#excecuteHandler(
-				handler, [event.target.dataset.serial],
-				'#single-product',
-				{ action: 'showProduct', serial: event.target.dataset.serial },
-				'#product-list', event
+				handler, [category],
+				'#product-list',
+				{ action: 'productsCategoryList', category: category },
+				'#category-list', event
 			);
 		});
 	} 
