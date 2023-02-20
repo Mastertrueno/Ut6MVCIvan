@@ -11,7 +11,7 @@ class VideoSystemgerView {
 		history.pushState(data, null, url);
 		event.preventDefault(); */
 	}
-	showCategories() {
+	ListCategories() {
 		this.categories.empty();
 		this.categories.append(`<div id="type-list" class="row">
 			   <div class="col-lg-3 col-md-6"><a data-type="Accion" href="#product-list">
@@ -39,6 +39,25 @@ class VideoSystemgerView {
 				   </a>
 			   </div>
 		   </div>`);
+	}
+	showCategories(categories) {
+		console.log(categories);
+		if (this.categories.children().length > 1)
+			this.categories.children()[1].remove();
+		let container = $('<div id="category-list" class="row"></div>');
+		for (let category of categories){
+			console.log(category[0]);
+			container.append(`<div class="col-lg-3 col-md-6"><a data-category="${category[0].Name}" href="#product-list">
+					<div class="cat-list-image"><img alt="${category[0].Name}" src="images/${category[0].Name}.jfif" />
+					</div>
+					<div class="cat-list-text">
+						<h3>${category[0].Name}</h3>
+						<div>${category[0].Description}</div>
+					</div>
+				</a>
+			</div>`);
+		}
+		this.categories.append(container);
 	}
 	showProductions(categories) {
 		if (this.categories.length > 1)
@@ -163,7 +182,7 @@ class VideoSystemgerView {
 
 		//product = production.next();
 
-		container.prepend(`<h1>${actor.Name}</h1>`);
+		container.prepend(`<h1>${actor.Name} ${actor.Lastname1}</h1>`);
 		this.main.append(container);
 	}
 	listDirector(director, Videosystem) {
@@ -189,7 +208,7 @@ class VideoSystemgerView {
 
 		//product = production.next();
 
-		container.prepend(`<h1>${director.Name}</h1>`);
+		container.prepend(`<h1>${director.Name} ${director.Lastname1}</h1>`);
 		this.main.append(container);
 	}
 	bindInit(handler) {
@@ -213,6 +232,17 @@ class VideoSystemgerView {
 				'#category-list', event
 			);
 			console.log(this.#excecuteHandler);
+		});
+	}
+	bindProductsCategoryList(handler){
+		$('#category-list').find('a').click((event) => {
+			let category = $(event.target).closest($('a')).get(0).dataset.category;
+			this.#excecuteHandler(
+				handler, [category],
+				'#product-list',
+				{action: 'productsCategoryList', category: category},
+				'#category-list', event
+			);
 		});
 	}
 	bindActorListInMenu(handler) {
@@ -290,6 +320,17 @@ class VideoSystemgerView {
 				'#product-list',
 				{ action: 'productsCategoryList', category: category },
 				'#category-list', event
+			);
+		});
+	}
+	bindProductsTypeList(handler){
+		$('#type-list').find('a').click((event) => {
+			let type = $(event.target).closest($('a')).get(0).dataset.type;
+			this.#excecuteHandler(
+				handler, [type],
+				'#product-list',
+				{action: 'productsTypeList', type: type},
+				'#type-list', event
 			);
 		});
 	}
