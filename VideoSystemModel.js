@@ -933,7 +933,7 @@ let VideoSystem = (
                                 //si en la produccion esta la dada se muestra el director
                                 if (array[i][0] == person) {
                                     for (let index = 0; index < array[i][1].length; index++) {
-                                        yield array[1][i][index];
+                                        yield array[i][1][index];
                                     }
                                 }
                             }
@@ -955,7 +955,8 @@ let VideoSystem = (
                                 //si en la produccion esta la dada se muestra el actor
                                 if (array[i][0] == person) {
                                     for (let index = 0; index < array[i][1].length; index++) {
-                                        yield array[1][i][index];
+                                        //console.log(array[i][1].length);
+                                        yield array[i][1][index];
                                     }
                                 }
                             }

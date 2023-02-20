@@ -11,9 +11,9 @@ class VideoSystemgerView {
 		history.pushState(data, null, url);
 		event.preventDefault(); */
 	}
-	    showCategories() {
-		   this.categories.empty();
-		   this.categories.append(`<div id="type-list" class="row">
+	showCategories() {
+		this.categories.empty();
+		this.categories.append(`<div id="type-list" class="row">
 			   <div class="col-lg-3 col-md-6"><a data-type="Accion" href="#product-list">
 					   <div class="cat-list-image"><img alt="Categoría Accion" src="images/accion.jfif" />
 					   </div>
@@ -39,7 +39,7 @@ class VideoSystemgerView {
 				   </a>
 			   </div>
 		   </div>`);
-	   } 
+	}
 	showProductions(categories) {
 		if (this.categories.length > 1)
 			this.categories.remove();
@@ -72,16 +72,47 @@ class VideoSystemgerView {
 		li.append(container);
 		this.menu.append(li);
 	}
-	listProductions(production,category,Videosystem) {
+	showActorsInMenu(actors) {
+		let li = $(`<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navActor" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Actores
+			</a>
+			</li>`);
+		let container = $('<div class="dropdown-menu" aria-labelledby="navAct"></div>');
+		//if (!category.done) shopping
+		for (let actor of actors) {
+			//console.log(actor[0].Lastname1);
+			container.append(`<a data-actor="${actor[0].Name}${actor[0].Lastname1}"
+		class="dropdown-item" href="#actor-list">${actor[0].Name} ${actor[0].Lastname1}</a>`);
+		}
+		li.append(container);
+		this.menu.append(li);
+	}
+	showDirectorsInMenu(directors) {
+		let li = $(`<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navDirector" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Directores
+			</a>
+			</li>`);
+		let container = $('<div class="dropdown-menu" aria-labelledby="navDirec"></div>');
+		//if (!category.done) shopping
+		for (let director of directors) {
+			//console.log(director[0].Lastname1);
+			container.append(`<a data-actor="${director[0].Name}"
+		class="dropdown-item" href="#actor-list">${director[0].Name} ${director[0].Lastname1}</a>`);
+		}
+		li.append(container);
+		this.menu.append(li);
+	}
+	listProductions(production, category, Videosystem) {
 		this.main.empty();
 		if (production.length > 1)
 			production.remove();
 		let container = $(`<div id="production-list" class="container my-3"><div class="row"> </div></div>`);
 		//let product = production.next();
-		
+
 		for (let product of production) {
-			console.log(product);
-            
+			//console.log(product);
 
 			let div = $(`<div class="col-md-4">
 				<figure class="card card-product-grid card-lg"> <a data-serial="${product.serial}" href="#single-product" class="img-wrap"><img class="${product.constructor.name}-style" src=""></a>
@@ -95,18 +126,70 @@ class VideoSystemgerView {
 				</figure>
 			</div>`);
 			container.children().first().append(div);
-			for (let actor of Videosystem.actors) {
+			/* for (let actor of Videosystem.actors) {
 				console.log(actor);
-			}
+			} */
 			for (let actor of Videosystem.getCast(product)) {
-				console.log(actor);
-				console.log(actor.Name);
+				/* console.log(actor);
+				console.log(actor.Name); */
 				container.children().children().children().last().append(`<div class="actor-wrap"> <span class="actor h5">${actor.Name} ${actor.Lastname1}</span> <br> </div>`);
 			}
-			
+
 			//product = production.next();
 		}
 		container.prepend(`<h1>${category}</h1>`);
+		this.main.append(container);
+	}
+	listActor(actor, Videosystem) {
+		this.main.empty();
+		console.log(actor);
+		let container = $(`<div id="actor-list" class="container my-3"><div class="row"> </div></div>`);
+		//let product = production.next();
+		//for (let index = 0; index < actors.length; index++) {
+
+		let div = $(`<div class="col-md-4">
+				<figure class="card card-actor-grid card-lg"> <a data-actor="${actor}" href="#single-actor" class="img-wrap"><img class="${actor}-style" src=""></a>
+					
+					
+				</figure>
+			</div>`);
+		container.children().first().append(div);
+		console.log(Videosystem.getProductionsActor(actor));
+		for (let prod of Videosystem.getProductionsActor(actor)) {
+			console.log(prod);
+			console.log(prod.Title);
+			container.children().children().children().last().append(`<div class="production-wrap"> <span class="production h5">${prod.Title}</span> <br> </div>`);
+		}
+
+		//product = production.next();
+
+		container.prepend(`<h1>${actor.Name}</h1>`);
+		this.main.append(container);
+	}
+	listDirector(director, Videosystem) {
+		this.main.empty();
+		console.log(director);
+		let container = $(`<div id="director-list" class="container my-3"><div class="row"> </div></div>`);
+		//let product = production.next();
+		//for (let index = 0; index < actors.length; index++) {
+
+		let div = $(`<div class="col-md-4">
+				<figure class="card card-director-grid card-lg"> <a data-actor="${director}" href="#single-actor" class="img-wrap"><img class="${director}-style" src=""></a>
+					
+					
+				</figure>
+			</div>`);
+		container.children().first().append(div);
+		console.log(Videosystem.getProductionsDirector(director));
+		for (let prod of Videosystem.getProductionsDirector(director)) {
+			console.log(prod);
+			console.log(prod.Title);
+			container.children().children().children().last().append(`<div class="production-wrap"> <span class="production h5">${prod.Title}</span> <br> </div>`);
+		}
+
+		//product = production.next();
+
+		container.prepend(`<h1>${director.Name}</h1>`);
 		this.main.append(container);
 	}
 	bindInit(handler) {
@@ -118,21 +201,81 @@ class VideoSystemgerView {
 		});
 	}
 	bindProductsCategoryListInMenu(handler) {
+		console.log(handler);
 		$('#navCats').next().children().click((event) => {
 			console.log((event.target));
 			let category = $(event.target).closest($('a')).get(0).dataset.category;
+			console.log(category);
 			this.#excecuteHandler(
 				handler, [category],
 				'#product-list',
 				{ action: 'productsCategoryList', category: category },
 				'#category-list', event
 			);
+			console.log(this.#excecuteHandler);
 		});
 	}
-	 bindShowProduct(handler) {
-		console.log($('#product-list').children());
+	bindActorListInMenu(handler) {
+		console.log("bindactor");
+		console.log($('#navActor').next().children());
+		console.log(handler);
+		$('#navActor').next().children().click((event) => {
+			console.log(event.target);
+			let act = $(event.target).closest($('a')).get(0);
+			console.log(act);
+			this.#excecuteHandler(
+				handler, [act],
+				'#actor-list',
+				{ action: 'productsActorList', Name: act },
+				'#actor-list', event
+			);
+			console.log(this.#excecuteHandler);
+		});
+	}
+	bindDirectorListInMenu(handler) {
+		console.log("binddirectorr");
+		console.log($('#navDirector').next().children());
+		console.log(handler);
+		$('#navDirector').next().children().click((event) => {
+			console.log(event.target);
+			let dir = $(event.target).closest($('a')).get(0);
+			console.log(dir);
+			this.#excecuteHandler(
+				handler, [dir],
+				'#director-list',
+				{ action: 'productsDirectorList', Name: dir },
+				'#director-list', event
+			);
+			console.log(this.#excecuteHandler);
+		});
+	}
+	bindPersonListInMenu(handler) {
+		$('#navCats').next().children().click((event) => {
+			console.log((event.target));
+			let person = $(event.target).closest($('a')).get(0).dataset.category;
+			let type;
+			if (event.target.text == "Actor") {
+				this.#excecuteHandler(
+					handler, [person],
+					'#actor-list',
+					{ action: 'productsCategoryList' },
+					'#actor-list', event
+				);
+			} else {
+				this.#excecuteHandler(
+					handler, [person],
+					'#director-list',
+					{ action: 'productsCategoryList' },
+					'#director-list', event
+				);
+			}
+
+		});
+	}
+	bindShowProduct(handler) {
+		//console.log($('#product-list').children());
 		$('#product-list').click((event) => {
-			console.log("aqui");
+			//console.log("aqui");
 			let category = $(event.target).closest($('a')).get(0).dataset.category;
 			this.#excecuteHandler(
 				handler, [category],
@@ -149,6 +292,6 @@ class VideoSystemgerView {
 				'#category-list', event
 			);
 		});
-	} 
+	}
 }
 export default VideoSystemgerView;

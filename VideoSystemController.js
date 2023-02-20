@@ -1,4 +1,4 @@
-import { VideoSystem, Category, Coordinate, Resource, User,Person,Movie,Serie } from "./VideoSystemModel.js";
+import { VideoSystem, Category, Coordinate, Resource, User, Person, Movie, Serie } from "./VideoSystemModel.js";
 class VideoSystemController {
     //Campos privados
     #Videosystem;
@@ -175,10 +175,12 @@ class VideoSystemController {
 
         this.#VideoSystemView.showCategories();
         this.onAddCategory();
+        this.onAddActor();
+
     }
     onInit = () => {
-        this.#VideoSystemView.showCategories(this.#Videosystem.categories);
-        
+        this.#VideoSystemView.showCategories();
+
         this.#VideoSystemView.bindShowProduct(
             this.handleProductionsTypeList
         );
@@ -192,14 +194,31 @@ class VideoSystemController {
             console.log(category[0].Description);
         }
         this.#VideoSystemView.showCategoriesInMenu(this.#Videosystem.categories);
+        this.#VideoSystemView.showActorsInMenu(this.#Videosystem.actors);
+        this.#VideoSystemView.showDirectorsInMenu(this.#Videosystem.directors);
         this.#VideoSystemView.bindProductsCategoryListInMenu(
             this.handleProductionsCategoryList
         );
-        
+        this.#VideoSystemView.bindActorListInMenu(
+            this.handleActorList
+        );
+        this.#VideoSystemView.bindDirectorListInMenu(
+            this.handleDirectorList
+        );
     }
+    onAddActor = () => {
+        for (let actor of (this.#Videosystem.actors)) {
+            console.log(actor[0].Name);
+        }
 
+        /* this.#VideoSystemView.bindActorListInMenu(
+            this.handleActorList
+        ); */
+        console.log(this.#VideoSystemView.bindActorListInMenu());
+    }
     handleProductionsCategoryList = (title) => {
         let category2;
+        console.log(title);
         for (let category of this.#Videosystem.categories) {
             console.log(category[0]);
             if (category[0].Name == title) {
@@ -216,7 +235,39 @@ class VideoSystemController {
         this.#VideoSystemView.listProductions(this.#Videosystem.getProductionsCategory(category2), title, this.#Videosystem);
         //this.#VideoSystemView.bindShowProduct(this.handleShowProduct);
     }
+    handleActorList = (title) => {
+        let category2;
+        let nom;
+        console.log(title.text);
+        for (let acto of this.#Videosystem.actors) {
+            nom = acto[0].Name + " " + acto[0].Lastname1;
+            console.log(nom);
+            console.log(acto[0]);
+            //console.log(title.innerHTML.normalize("NFD").replace(/[\u0300-\u036f]/g, ''));
+            if (nom == title.innerHTML.normalize("NFD").replace(/[\u0300-\u036f]/g, '')) {
+                category2 = acto[0];
+            }
+        }
+        console.log(category2);
+        this.#VideoSystemView.listActor(category2, this.#Videosystem);
+    }
 
+   handleDirectorList = (title) => {
+        let category2;
+        let nom;
+        console.log(title.text);
+        for (let dire of this.#Videosystem.directors) {
+            nom = dire[0].Name + " " + dire[0].Lastname1;
+            console.log(nom);
+            console.log(dire[0]);
+            //console.log(title.innerHTML.normalize("NFD").replace(/[\u0300-\u036f]/g, ''));
+            if (nom == title.innerHTML.normalize("NFD").replace(/[\u0300-\u036f]/g, '')) {
+                category2 = dire[0];
+            }
+        }
+        console.log(category2);
+        this.#VideoSystemView.listDirector(category2, this.#Videosystem);
+    }
     handleProductionsTypeList = (type) => {
         console.log("Handle");
         console.log(VideoSystem[type]);
