@@ -57,6 +57,7 @@ class VideoSystemgerView {
 				</a>
 			</div>`);
 		}
+		container.prepend(`<h1>Categorias</h1>`);
 		this.categories.append(container);
 	}
 	showProductions(categories) {
