@@ -93,7 +93,7 @@ class VideoSystemgerView {
 			len=Math.floor( Math.random() * list.length);
 			console.log(len);
 			container.append(`<div class="col-lg-3 col-md-6"><a data-product="${list[len].Title}" href="#product-list">
-					<div class="prod-list-image"><img alt="${list[len].Title}" src="images/${list[len].Title}.jfif" />
+					<div class="prod-list-image"><img alt="${list[len].Title}" src="images/${list[len].Title}.jfif " />
 					</div>
 					<div class="prod-list-text">
 						<h3>${list[len].Title}</h3>
@@ -104,7 +104,8 @@ class VideoSystemgerView {
 			list.splice(len,1);
 			//console.log(list);
 		}
-		this.categories.append(productions);
+		this.categories.append(container);
+		container.prepend(`<h1>Populares</h1>`);
 		this.main.append(container);
 	}
 	showCategoriesInMenu(categories) {
@@ -165,11 +166,10 @@ class VideoSystemgerView {
 			//console.log(product);
 
 			let div = $(`<div class="col-md-4">
-				<figure class="card card-product-grid card-lg"> <a data-serial="${product.serial}" href="#single-product" class="img-wrap"><img class="${product.constructor.name}-style" src=""></a>
+				<figure class="card card-product-grid card-lg"> <a data-serial="${product.serial}" href="#single-product" class="img-wrap"><img class="${product.constructor.name}-style" src="images/${product.Title}.jfif"></a>
 					<figcaption class="info-wrap">
 						<div class="row">
 							<div class="col-md-8"> <a data-serial="${product.serial}" href="#single-product" class="title"><h2>${product.Title}</h2></a> </div>
-
 						</div>
 					</figcaption>
 					

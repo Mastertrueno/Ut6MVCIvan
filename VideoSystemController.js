@@ -32,9 +32,9 @@ class VideoSystemController {
         let dir8 = new Person("Ryan", "Turner", "", "11/08/1995", "");
 
         let prod = new Movie("Las llamas", "Español", "20/03/2010", "fuego", "a", new Resource(59, "lod"), new Coordinate(48, 70));
-        let prod2 = new Movie("Sparta", "Español", "20/03/2010", "esto es esparta", "a", new Resource(123, "lod"), new Coordinate(48, 70));
+        let prod2 = new Movie("Spartacus", "Español", "20/03/2010", "esto es esparta", "a", new Resource(123, "lod"), new Coordinate(48, 70));
         let prod3 = new Serie("Mellizos", "Español", "20/03/2010", "o gemelos?", "a", new Resource(30, "lod"), new Coordinate(48, 70), 8);
-        let prod4 = new Movie("Captura la bandera", "Español", "22/04/2013", "Una carrera a la luna a por la bandera", "a", new Resource(82, "lod"), new Coordinate(48, 70));
+        let prod4 = new Movie("Atrapa la bandera", "Español", "22/04/2013", "Una carrera a la luna a por la bandera", "a", new Resource(82, "lod"), new Coordinate(48, 70));
 
 
         let prod5 = new Serie("Entre fantasmas", "EEUU", "10/02/2000", "Una mujer que puede hablar con los fantasmas", "a", new Resource(30, "lod"), new Coordinate(34, 33), 11);
