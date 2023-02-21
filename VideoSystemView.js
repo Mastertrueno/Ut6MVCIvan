@@ -11,7 +11,7 @@ class VideoSystemgerView {
 		history.pushState(data, null, url);
 		event.preventDefault(); */
 	}
-	ListCategories() {
+	/* ListCategories() {
 		this.categories.empty();
 		this.categories.append(`<div id="type-list" class="row">
 			   <div class="col-lg-3 col-md-6"><a data-type="Accion" href="#product-list">
@@ -39,7 +39,7 @@ class VideoSystemgerView {
 				   </a>
 			   </div>
 		   </div>`);
-	}
+	} */
 	showCategories(categories) {
 		console.log(categories);
 		if (this.categories.children().length > 1)
@@ -75,6 +75,37 @@ class VideoSystemgerView {
 		</div>`);
 		}
 		this.categories.append(container);
+	}
+	showAletProductions(productions) {
+		this.main.empty();
+		console.log(productions);
+/* 		if (this.productions.length > 1)
+			this.productions.children()[1].remove(); */
+		let container = $('<div id="product-list" class="row"></div>');
+		let list=[];
+		for (let product of productions){
+			console.log(product);
+			list.push(product);
+			
+		}
+		let len ;
+		for (let index = 0; index < 3; index++) {
+			len=Math.floor( Math.random() * list.length);
+			console.log(len);
+			container.append(`<div class="col-lg-3 col-md-6"><a data-product="${list[len].Title}" href="#product-list">
+					<div class="prod-list-image"><img alt="${list[len].Title}" src="images/${list[len].Title}.jfif" />
+					</div>
+					<div class="prod-list-text">
+						<h3>${list[len].Title}</h3>
+						
+					</div>
+				</a>
+			</div>`);
+			list.splice(len,1);
+			//console.log(list);
+		}
+		this.categories.append(productions);
+		this.main.append(container);
 	}
 	showCategoriesInMenu(categories) {
 		let li = $(`<li class="nav-item dropdown">
@@ -242,6 +273,20 @@ class VideoSystemgerView {
 				'#product-list',
 				{action: 'productsCategoryList', category: category},
 				'#category-list', event
+			);
+		});
+	}
+	bindProductsList(handler){
+		console.log(handler);
+		console.log($('#product-list'));
+		$('#product-list').find('a').click((event) => {
+			let prod = $(event.target).closest($('a')).get(0);
+			console.log(prod);
+			this.#excecuteHandler(
+				handler, [prod],
+				'#product-list',
+				{action: 'productsCategoryList'},
+				'#product-list', event
 			);
 		});
 	}

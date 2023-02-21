@@ -174,6 +174,9 @@ class VideoSystemController {
           this.#VideoSystemView.bindProductsCategoryList(
             this.handleProductionsCategoryList
         );
+        this.#VideoSystemView.bindProductsList(
+            this.handleAletProductionList
+        );
         this.onAddCategory();
         this.onAddActor();
 
@@ -182,9 +185,11 @@ class VideoSystemController {
        // this.#VideoSystemView.ListCategories();
        console.log(this.#Videosystem.categories);
        this.#VideoSystemView.showCategories(this.#Videosystem.categories);
+       this.#VideoSystemView.showAletProductions(this.#Videosystem.productions);
         this.#VideoSystemView.bindProductsCategoryList(
             this.handleProductionsCategoryList
         );
+        
     }
 
     handleInit = () => {
@@ -237,13 +242,8 @@ class VideoSystemController {
         }
         console.log(category2);
 
-        /*  for (let category of this.#Videosystem.getProductionsCategory(category2)) {
-             console.log(category);
-         	
-         } */
-        //console.log(this.#Videosystem.getProductionsCategory(category2));
+
         this.#VideoSystemView.listProductions(this.#Videosystem.getProductionsCategory(category2), title, this.#Videosystem);
-        //this.#VideoSystemView.bindShowProduct(this.handleShowProduct);
     }
     handleActorList = (title) => {
         let category2;
@@ -261,7 +261,14 @@ class VideoSystemController {
         console.log(category2);
         this.#VideoSystemView.listActor(category2, this.#Videosystem);
     }
-
+    handleAletProductionList = (title) => {
+        let category2;
+        let nom;
+        console.log(title.text);
+        
+        console.log(this.#Videosystem.productions);
+        this.#VideoSystemView.showAletProductions(this.#Videosystem.productions);
+    }
    handleDirectorList = (title) => {
         let category2;
         let nom;
@@ -294,21 +301,5 @@ class VideoSystemController {
             this.#VideoSystemView.bindShowProduct(this.handleShowProduct);
      
     }
-    /* handleProductsCategoryList = (title) => {
-		let category = this.#Videosystem.getCategory(title);
-		this.#VideoSystemView.listProductions(this.#Videosystem.getCategoryProducts(category),category.title);
-		this.#VideoSystemView.bindShowProduct(this.handleShowProduct);
-	} */
-    /* handleShowProduct = (serial) => {
-        try {
-            let product = this.#manager.getProduct(Number.parseInt(serial));
-            this.#managerView.showProduct(product);
-            this.#managerView.bindShowProductInNewWindow(
-                this.handleShowProductInNewWindow
-            );
-        } catch (error){
-            this.#managerView.showProduct(null, 'No existe este producto en la página.');
-        }
-    } */
 }
 export default VideoSystemController;
