@@ -201,8 +201,8 @@ class VideoSystemController {
             console.log(category[0].Description);
         }
         this.#VideoSystemView.showCategoriesInMenu(this.#Videosystem.categories);
-        this.#VideoSystemView.showActorsInMenu(this.#Videosystem.actors);
-        this.#VideoSystemView.showDirectorsInMenu(this.#Videosystem.directors);
+        this.#VideoSystemView.showActorsInMenu();
+        this.#VideoSystemView.showDirectorsInMenu();
         this.#VideoSystemView.bindProductsCategoryListInMenu(
             this.handleProductionsCategoryList
         );
@@ -245,8 +245,8 @@ class VideoSystemController {
 
         this.#VideoSystemView.listProductions(this.#Videosystem.getProductionsCategory(category2), title, this.#Videosystem);
     }
-    handleActorList = (title) => {
-        let category2;
+    handleActorList = () => {
+       /*  let category2;
         let nom;
         console.log(title.text);
         for (let acto of this.#Videosystem.actors) {
@@ -258,8 +258,8 @@ class VideoSystemController {
                 category2 = acto[0];
             }
         }
-        console.log(category2);
-        this.#VideoSystemView.listActor(category2, this.#Videosystem);
+        console.log(category2); */
+        this.#VideoSystemView.listActor(this.#Videosystem.actors, this.#Videosystem);
     }
     handleAletProductionList = (title) => {
         let category2;
@@ -269,8 +269,8 @@ class VideoSystemController {
         console.log(this.#Videosystem.productions);
         this.#VideoSystemView.showAletProductions(this.#Videosystem.productions);
     }
-   handleDirectorList = (title) => {
-        let category2;
+   handleDirectorList = () => {
+/*         let category2;
         let nom;
         console.log(title.text);
         for (let dire of this.#Videosystem.directors) {
@@ -282,8 +282,8 @@ class VideoSystemController {
                 category2 = dire[0];
             }
         }
-        console.log(category2);
-        this.#VideoSystemView.listDirector(category2, this.#Videosystem);
+        console.log(category2); */
+        this.#VideoSystemView.listDirector(this.#Videosystem.directors, this.#Videosystem);
     }
     handleProductionsTypeList = (type) => {
         console.log("Handle");

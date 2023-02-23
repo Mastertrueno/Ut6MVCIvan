@@ -124,7 +124,15 @@ class VideoSystemgerView {
 		li.append(container);
 		this.menu.append(li);
 	}
-	showActorsInMenu(actors) {
+	showActorsInMenu() {
+		let li = $(`<li class="nav-item ">
+			<a class="nav-link " href="#" id="navActor" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Actores
+			</a>
+			</li>`);
+		this.menu.append(li);
+	}
+/* 	showActorsInMenu(actors) {//hace una lista en el menu
 		let li = $(`<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navActor" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Actores
@@ -139,8 +147,16 @@ class VideoSystemgerView {
 		}
 		li.append(container);
 		this.menu.append(li);
+	} */
+	showDirectorsInMenu() {
+		let li = $(`<li class="nav-item ">
+			<a class="nav-link " href="#" id="navDirector" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Directores
+			</a>
+			</li>`);
+		this.menu.append(li);
 	}
-	showDirectorsInMenu(directors) {
+/* 	showDirectorsInMenu(directors) {//hace una lista en el menu
 		let li = $(`<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navDirector" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Directores
@@ -155,7 +171,7 @@ class VideoSystemgerView {
 		}
 		li.append(container);
 		this.menu.append(li);
-	}
+	} */
 	listProductions(production, category, Videosystem) {
 		this.main.empty();
 		if (production.length > 1)
@@ -191,56 +207,60 @@ class VideoSystemgerView {
 		container.prepend(`<h1>${category}</h1>`);
 		this.main.append(container);
 	}
-	listActor(actor, Videosystem) {
+	listActor(actors, Videosystem) {
 		this.main.empty();
-		console.log(actor);
-		let container = $(`<div id="actor-list" class="container my-3"><div class="row"> </div></div>`);
+		console.log(actors);
+		let container = $(`<div id="actors-list" class="container my-3"><div class="row"> </div></div>`);
 		//let product = production.next();
 		//for (let index = 0; index < actors.length; index++) {
-
+			for (let actor of actors) {
+				console.log(actor[0]);
 		let div = $(`<div class="col-md-4">
-				<figure class="card card-actor-grid card-lg"> <a data-actor="${actor}" href="#single-actor" class="img-wrap"><img class="${actor}-style" src=""></a>
+				<figure class="card card-actor-grid card-lg"> <a data-actor="${actor}" href="#single-actor" class="img-wrap"></a>
 					
 					
 				</figure>
 			</div>`);
 		container.children().first().append(div);
-		console.log(Videosystem.getProductionsActor(actor));
-		for (let prod of Videosystem.getProductionsActor(actor)) {
+		console.log(Videosystem.getProductionsActor(actor[0]));
+		for (let prod of Videosystem.getProductionsActor(actor[0])) {
 			console.log(prod);
 			console.log(prod.Title);
 			container.children().children().children().last().append(`<div class="production-wrap"> <span class="production h5">${prod.Title}</span> <br> </div>`);
 		}
-
+		div.prepend(`<h2>${actor[0].Name} ${actor[0].Lastname1}  ${actor[0].Lastname2}</h2>`)
+	}
 		//product = production.next();
 
-		container.prepend(`<h1>${actor.Name} ${actor.Lastname1}</h1>`);
+		container.prepend(`<h1>Actores</h1>`);
 		this.main.append(container);
 	}
-	listDirector(director, Videosystem) {
+	listDirector(directors, Videosystem) {
 		this.main.empty();
-		console.log(director);
-		let container = $(`<div id="director-list" class="container my-3"><div class="row"> </div></div>`);
+		console.log(directors);
+		let container = $(`<div id="directors-list" class="container my-3"><div class="row"> </div></div>`);
 		//let product = production.next();
 		//for (let index = 0; index < actors.length; index++) {
-
+			for (let director of directors) {
+				console.log(director[0]);
 		let div = $(`<div class="col-md-4">
-				<figure class="card card-director-grid card-lg"> <a data-actor="${director}" href="#single-actor" class="img-wrap"><img class="${director}-style" src=""></a>
+				<figure class="card card-director-grid card-lg"> <a data-director="${director}" href="#single-director" class="img-wrap"></a>
 					
 					
 				</figure>
 			</div>`);
 		container.children().first().append(div);
-		console.log(Videosystem.getProductionsDirector(director));
-		for (let prod of Videosystem.getProductionsDirector(director)) {
+		console.log(Videosystem.getProductionsDirector(director[0]));
+		for (let prod of Videosystem.getProductionsDirector(director[0])) {
 			console.log(prod);
 			console.log(prod.Title);
 			container.children().children().children().last().append(`<div class="production-wrap"> <span class="production h5">${prod.Title}</span> <br> </div>`);
 		}
-
+		div.prepend(`<h2>${director[0].Name} ${director[0].Lastname1}  ${director[0].Lastname2}</h2>`)
+	}
 		//product = production.next();
 
-		container.prepend(`<h1>${director.Name} ${director.Lastname1}</h1>`);
+		container.prepend(`<h1>Directores</h1>`);
 		this.main.append(container);
 	}
 	bindInit(handler) {
@@ -293,9 +313,9 @@ class VideoSystemgerView {
 	}
 	bindActorListInMenu(handler) {
 		console.log("bindactor");
-		console.log($('#navActor').next().children());
+		console.log($('#navActor'));
 		console.log(handler);
-		$('#navActor').next().children().click((event) => {
+		$('#navActor').click((event) => {
 			console.log(event.target);
 			let act = $(event.target).closest($('a')).get(0);
 			console.log(act);
@@ -309,10 +329,10 @@ class VideoSystemgerView {
 		});
 	}
 	bindDirectorListInMenu(handler) {
-		console.log("binddirectorr");
-		console.log($('#navDirector').next().children());
+		console.log("binddirector");
+		console.log($('#navDirector'));
 		console.log(handler);
-		$('#navDirector').next().children().click((event) => {
+		$('#navDirector').click((event) => {
 			console.log(event.target);
 			let dir = $(event.target).closest($('a')).get(0);
 			console.log(dir);
