@@ -247,14 +247,13 @@ class VideoSystemController {
     }
     handleProduction = (title) => {
         let produccion;
-        console.log(title);
+        console.log($(title).parent().last().get(0));
         //console.log($(title).parent().children().children().children().children().children().text());
-        let ref=$(title).parent().children().children().children().children().children().text().trim();
+        let ref=$(title).parent().last().children().text().trim();
         for (let prod of this.#Videosystem.productions) {
             console.log(prod.Title);
             console.log(ref);
             if (prod.Title == ref) {
-                console.log("entro");
                 produccion = prod;
             }
         }

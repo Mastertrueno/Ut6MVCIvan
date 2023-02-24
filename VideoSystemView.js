@@ -95,9 +95,11 @@ class VideoSystemgerView {
 			console.log(len);
 			
 			let div=(`<div class="col-lg-3 col-md-6>
-				<figure class="card card-product-grid card-lg"> <a data-product="${list[len].Title}" href="#single-product" class="img-wrap"><img class="${list[len].Title}" src="images/${list[len].Title}.jfif"></a>
+				<figure class="card card-product-grid card-lg">
 					<figcaption class="info-wrap">
 						<div class="row">
+						<a data-product="${list[len].Title}" href="#single-product" class="img-wrap"><img class="${list[len].Title}" src="images/${list[len].Title}.jfif"></a>
+
 							<div class="col-md-8"> <a data-product="${list[len].Title}" href="#single-product" class="title"><h2>${list[len].Title}</h2></a> </div>
 						</div>
 					</figcaption>
@@ -186,9 +188,11 @@ class VideoSystemgerView {
 			//console.log(product);
 
 			let div = $(`<div class="col-lg-3 col-md-6>
-				<figure class="card card-product-grid card-lg"> <a data-product="${product.Title}" href="#single-product" class="img-wrap"><img class="${product.constructor.name}-style" src="images/${product.Title}.jfif"></a>
+				<figure class="card card-product-grid card-lg"> 
 					<figcaption class="info-wrap">
 						<div class="row">
+						<a data-product="${product.Title}" href="#single-product" class="img-wrap"><img class="${product.constructor.name}-style" src="images/${product.Title}.jfif"></a>
+
 							<div class="col-md-8"> <a data-product="${product.Title}" href="#single-product" class="title"><h2>${product.Title}</h2></a> </div>
 						</div>
 					</figcaption>
