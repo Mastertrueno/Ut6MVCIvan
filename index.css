@@ -17,3 +17,6 @@ h1{
 .nav-item{
     margin: 10px;
 }
+figcaption{
+    text-align: center;
+}

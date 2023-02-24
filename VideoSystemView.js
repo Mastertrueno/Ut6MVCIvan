@@ -82,7 +82,7 @@ class VideoSystemgerView {
 		console.log(productions);
 /* 		if (this.productions.length > 1)
 			this.productions.children()[1].remove(); */
-		let container = $('<div id="product-list" class="row"></div>');
+			let container = $(`<div id="product-list" class="container my-3"><div class="row"> </div></div>`);
 		let list=[];
 		for (let product of productions){
 			console.log(product);
@@ -93,17 +93,20 @@ class VideoSystemgerView {
 		for (let index = 0; index < 3; index++) {
 			len=Math.floor( Math.random() * list.length);
 			console.log(len);
-			container.append(`<div class="col-lg-3 col-md-6"><a data-product="${list[len].Title}" href="#product-list">
-					<div class="prod-list-image"><img alt="${list[len].Title}" src="images/${list[len].Title}.jfif " />
-					</div>
-					<div class="prod-list-text">
-						<h3>${list[len].Title}</h3>
-						
-					</div>
-				</a>
+			
+			let div=(`<div class="col-lg-3 col-md-6>
+				<figure class="card card-product-grid card-lg"> <a data-product="${list[len].Title}" href="#single-product" class="img-wrap"><img class="${list[len].Title}" src="images/${list[len].Title}.jfif"></a>
+					<figcaption class="info-wrap">
+						<div class="row">
+							<div class="col-md-8"> <a data-product="${list[len].Title}" href="#single-product" class="title"><h2>${list[len].Title}</h2></a> </div>
+						</div>
+					</figcaption>
+					
+				</figure>
 			</div>`);
 			list.splice(len,1);
 			//console.log(list);
+			container.children().first().append(div);
 		}
 		this.categories.append(container);
 		container.prepend(`<h1>Populares</h1>`);
@@ -132,13 +135,13 @@ class VideoSystemgerView {
 			</li>`);
 		this.menu.append(li);
 	}
-/* 	showActorsInMenu(actors) {//hace una lista en el menu
+ 	showActor(actors) {//hace una lista en el menu
 		let li = $(`<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navActor" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Actores
 			</a>
 			</li>`);
-		let container = $('<div class="dropdown-menu" aria-labelledby="navAct"></div>');
+		let container = $('<div id="product-list" class="container my-3"><div class="row"> </div></div>');
 		//if (!category.done) shopping
 		for (let actor of actors) {
 			//console.log(actor[0].Lastname1);
@@ -147,7 +150,7 @@ class VideoSystemgerView {
 		}
 		li.append(container);
 		this.menu.append(li);
-	} */
+	} 
 	showDirectorsInMenu() {
 		let li = $(`<li class="nav-item ">
 			<a class="nav-link " href="#" id="navDirector" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -176,17 +179,17 @@ class VideoSystemgerView {
 		this.main.empty();
 		if (production.length > 1)
 			production.remove();
-		let container = $(`<div id="production-list" class="container my-3"><div class="row"> </div></div>`);
+		let container = $(`<div id="product-list" class="container my-3"><div class="row"> </div></div>`);
 		//let product = production.next();
 
 		for (let product of production) {
 			//console.log(product);
 
-			let div = $(`<div class="col-md-4">
-				<figure class="card card-product-grid card-lg"> <a data-serial="${product.serial}" href="#single-product" class="img-wrap"><img class="${product.constructor.name}-style" src="images/${product.Title}.jfif"></a>
+			let div = $(`<div class="col-lg-3 col-md-6>
+				<figure class="card card-product-grid card-lg"> <a data-product="${product.Title}" href="#single-product" class="img-wrap"><img class="${product.constructor.name}-style" src="images/${product.Title}.jfif"></a>
 					<figcaption class="info-wrap">
 						<div class="row">
-							<div class="col-md-8"> <a data-serial="${product.serial}" href="#single-product" class="title"><h2>${product.Title}</h2></a> </div>
+							<div class="col-md-8"> <a data-product="${product.Title}" href="#single-product" class="title"><h2>${product.Title}</h2></a> </div>
 						</div>
 					</figcaption>
 					
@@ -205,6 +208,44 @@ class VideoSystemgerView {
 			//product = production.next();
 		}
 		container.prepend(`<h1>${category}</h1>`);
+		this.main.append(container);
+	}
+	listProduction(product, Videosystem) {
+		this.main.empty();
+		/* if (production.length > 1)
+			production.remove(); */
+		let container = $(`<div id="product-list" class="container my-3"><div class="row"> </div></div>`);
+		//let product = production.next();
+
+			//console.log(product);
+
+			let div = $(`<div class="col-md-4">
+				<figure class="card card-product-grid card-lg"> <a data-product="${product.Title}" href="#single-product" class="img-wrap"><img class="${product.constructor.name}-style" src="images/${product.Title}.jfif"></a>
+					<figcaption class="info-wrap">
+						<div class="row">
+							<div class="col-md-8"> <a data-data-product="${product.Title}" href="#single-product" class="title"><h2>${product.Title}</h2></a> </div>
+						</div>
+						<div class="col-md-8"><h3>Nacionalidad</h3><span class="product h4">${product.Nacionality}</span></a>  </div>
+						<div class="col-md-8"><h3>Publicacion</h3></a><span class="product h4">${product.Publication}</span> <br> </div>
+						<div class="col-md-8"><h3>Sinopsis</h3></a><span class="product h4">${product.Synopsis}</span> <br> </div>
+					</figcaption>
+					<h2>Actores</h2>
+				</figure>
+			</div>
+			`);
+			container.children().first().append(div);
+			/* for (let actor of Videosystem.actors) {
+				console.log(actor);
+			} */
+			for (let actor of Videosystem.getCast(product)) {
+				/* console.log(actor);
+				console.log(actor.Name); */
+				container.children().children().children().last().append(`<div class="actor-wrap"> <span class="actor h5">${actor.Name} ${actor.Lastname1}</span> <br> </div>`);
+			}
+
+			//product = production.next();
+		
+		container.prepend(`<h1>${product.Title}</h1>`);
 		this.main.append(container);
 	}
 	listActor(actors, Videosystem) {
@@ -298,6 +339,20 @@ class VideoSystemgerView {
 		});
 	}
 	bindProductsList(handler){
+		console.log(handler);
+		console.log($('#product-list'));
+		$('#product-list').find('a').click((event) => {
+			let prod = $(event.target).closest($('a')).get(0);
+			console.log(prod);
+			this.#excecuteHandler(
+				handler, [prod],
+				'#product-list',
+				{action: 'productsCategoryList'},
+				'#product-list', event
+			);
+		});
+	}
+	bindProducts(handler){
 		console.log(handler);
 		console.log($('#product-list'));
 		$('#product-list').find('a').click((event) => {
