@@ -211,6 +211,9 @@ class VideoSystemController {
         this.#VideoSystemView.bindProducts(
             this.handleProduction
         );
+        this.#VideoSystemView.bindActors(
+            this.handleActor
+        );
         this.#VideoSystemView.bindActorListInMenu(
             this.handleActorList
         );
@@ -247,39 +250,123 @@ class VideoSystemController {
     }
     handleProduction = (title) => {
         let produccion;
-        console.log($(title).parent().last().get(0));
+        //console.log($(title).parent().last().get(0));
         //console.log($(title).parent().children().children().children().children().children().text());
         let ref=$(title).parent().last().children().text().trim();
         for (let prod of this.#Videosystem.productions) {
-            console.log(prod.Title);
-            console.log(ref);
+            //console.log(prod.Title);
+           // console.log(ref);
             if (prod.Title == ref) {
                 produccion = prod;
             }
         }
-        console.log(produccion);
-        console.log("entra en el handleproduction")
+        //console.log(produccion);
+        //console.log("entra en el handleproduction")
         this.#VideoSystemView.listProduction(produccion, this.#Videosystem);
+        this.#VideoSystemView.bindActorsProd(
+            this.handleActorProd
+        );
+    }
+    
+    handleActor = (title) => {
+        let actor2;
+        let act;
+        console.log(title);
+        console.log($(title).text());
+        //console.log($(title).parent().children().children().children().children().children().text());
+        let ref=$(title).text();
+        for (let actor of this.#Videosystem.actors) {
+            act=actor[0].Name +" "+actor[0].Lastname1+" "+ actor[0].Lastname2;
+
+            console.log(act);
+            console.log(ref);
+            if (act == ref) {
+                actor2 = actor[0];
+            }
+        }
+        console.log(actor2);
+       // console.log("entra en el handle actor")
+        this.#VideoSystemView.listActor(actor2, this.#Videosystem);
+        this.#VideoSystemView.bindProductsPerson(
+            this.handleProductionPerson
+        );
+    }
+    handleDirector = (title) => {
+        let dir2;
+        let dir;
+        console.log(title);
+        console.log($(title).text());
+        //console.log($(title).parent().children().children().children().children().children().text());
+        let ref=$(title).text();
+        for (let direc of this.#Videosystem.directors) {
+            dir=direc[0].Name +" "+direc[0].Lastname1+" "+ direc[0].Lastname2;
+
+            console.log(dir);
+            console.log(ref);
+            if (dir == ref) {
+                dir2 = direc[0];
+            }
+        }
+        console.log(dir2);
+       // console.log("entra en el handle actor")
+        this.#VideoSystemView.listDirector(dir2, this.#Videosystem);
+        this.#VideoSystemView.bindProductsPerson(
+            this.handleProductionPerson
+        );
+    }
+    handleActorProd = (title) => {
+        let actor2;
+        let act;
+        console.log(title);
+        console.log($(title).text());
+        //console.log($(title).parent().children().children().children().children().children().text());
+        let ref=$(title).text();
+        for (let actor of this.#Videosystem.actors) {
+            act=actor[0].Name +" "+actor[0].Lastname1+" "+ actor[0].Lastname2;
+
+            console.log(act);
+            console.log(ref);
+            if (act == ref) {
+                actor2 = actor[0];
+            }
+        }
+        console.log(actor2);
+       // console.log("entra en el handle actor")
+        this.#VideoSystemView.listActor(actor2, this.#Videosystem);
+        this.#VideoSystemView.bindProductsPerson(
+            this.handleProductionPerson
+        );
+    }
+    handleProductionPerson = (title) => {
+        let actor2;
+        let act;
+        console.log(title);
+        console.log($(title).text());
+        //console.log($(title).parent().children().children().children().children().children().text());
+        let ref=$(title).text();
+        for (let prod of this.#Videosystem.productions) {
+
+            console.log(prod.Title);
+            console.log(ref);
+            if (prod.Title == ref) {
+                actor2 = prod;
+            }
+        }
+        console.log(actor2);
+       // console.log("entra en el handle actor")
+        this.#VideoSystemView.listProduction(actor2, this.#Videosystem);
+        this.#VideoSystemView.bindActorsProd(
+            this.handleActorProd
+        );
     }
     handleActorList = () => {
-        /*  let category2;
-         let nom;
-         console.log(title.text);
-         for (let acto of this.#Videosystem.actors) {
-             nom = acto[0].Name + " " + acto[0].Lastname1;
-             console.log(nom);
-             console.log(acto[0]);
-             //console.log(title.innerHTML.normalize("NFD").replace(/[\u0300-\u036f]/g, ''));
-             if (nom == title.innerHTML.normalize("NFD").replace(/[\u0300-\u036f]/g, '')) {
-                 category2 = acto[0];
-             }
-         }
-         console.log(category2); */
-        this.#VideoSystemView.listActor(this.#Videosystem.actors, this.#Videosystem);
+
+        this.#VideoSystemView.listActors(this.#Videosystem.actors, this.#Videosystem);
+        this.#VideoSystemView.bindActors(
+            this.handleActor
+        );
     }
     handleAletProductionList = (title) => {
-        let category2;
-        let nom;
         console.log(title.text);
 
         console.log(this.#Videosystem.productions);
@@ -299,7 +386,10 @@ class VideoSystemController {
                     }
                 }
                 console.log(category2); */
-        this.#VideoSystemView.listDirector(this.#Videosystem.directors, this.#Videosystem);
+        this.#VideoSystemView.showDirectors(this.#Videosystem.directors, this.#Videosystem);
+        this.#VideoSystemView.bindDirectors(
+            this.handleDirector
+        );
     }
     handleProductionsTypeList = (type) => {
         console.log("Handle");
