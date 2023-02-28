@@ -177,7 +177,6 @@ class VideoSystemController {
         this.#VideoSystemView.bindProductsList(
             this.handleAletProductionList
         );
-
         this.onAddCategory();
 
     }
@@ -252,10 +251,10 @@ class VideoSystemController {
         let produccion;
         //console.log($(title).parent().last().get(0));
         //console.log($(title).parent().children().children().children().children().children().text());
-        let ref=$(title).parent().last().children().text().trim();
+        let ref = $(title).parent().last().children().text().trim();
         for (let prod of this.#Videosystem.productions) {
             //console.log(prod.Title);
-           // console.log(ref);
+            // console.log(ref);
             if (prod.Title == ref) {
                 produccion = prod;
             }
@@ -266,30 +265,58 @@ class VideoSystemController {
         this.#VideoSystemView.bindActorsProd(
             this.handleActorProd
         );
+       
     }
-    
+
     handleActor = (title) => {
         let actor2;
         let act;
         console.log(title);
         console.log($(title).text());
         //console.log($(title).parent().children().children().children().children().children().text());
-        let ref=$(title).text();
-        for (let actor of this.#Videosystem.actors) {
-            act=actor[0].Name +" "+actor[0].Lastname1+" "+ actor[0].Lastname2;
+        let ref = $(title).text().trim();
+        if (ref == "Actores" || ref == "Directores" || ref == "Accion" || ref == "Romance" || ref == "Misterio") {
+            console.log("actori");
+            this.#VideoSystemView.bindProductsCategoryList(
+                this.handleProductionsCategoryList
+            );
+            /* this.#VideoSystemView.bindProducts(
+                this.handleProduction
+            ); */
+            this.#VideoSystemView.bindProductsList(
+                this.handleAletProductionList
+            );
+            this.#VideoSystemView.bindActorListInMenu(
+                this.handleActorList
+            );
+            this.#VideoSystemView.bindDirectorListInMenu(
+                this.handleDirectorList
+            );
+        } else {
+            if (ref != "Abrir en ventana") {
+                for (let actor of this.#Videosystem.actors) {
+                    act = actor[0].Name.trim() + " " + actor[0].Lastname1.trim() + " " + actor[0].Lastname2.trim();
+                    act=act.trim();
+                    console.log(act);
+                    console.log(ref);
+                    if (act == ref) {
+                        actor2 = actor[0];
+                    }
+                }
+                console.log(actor2);
+                // console.log("entra en el handle actor")
+                this.#VideoSystemView.listActor(actor2, this.#Videosystem);
+                this.#VideoSystemView.bindProductsPerson(
+                    this.handleProductionPerson
+                );
+            } else {
 
-            console.log(act);
-            console.log(ref);
-            if (act == ref) {
-                actor2 = actor[0];
+                /* this.#VideoSystemView.bindWindows(
+                    //this.handleWindow
+                    this.handleShowProductInNewWindow
+                ); */
             }
         }
-        console.log(actor2);
-       // console.log("entra en el handle actor")
-        this.#VideoSystemView.listActor(actor2, this.#Videosystem);
-        this.#VideoSystemView.bindProductsPerson(
-            this.handleProductionPerson
-        );
     }
     handleDirector = (title) => {
         let dir2;
@@ -297,22 +324,55 @@ class VideoSystemController {
         console.log(title);
         console.log($(title).text());
         //console.log($(title).parent().children().children().children().children().children().text());
-        let ref=$(title).text();
-        for (let direc of this.#Videosystem.directors) {
-            dir=direc[0].Name +" "+direc[0].Lastname1+" "+ direc[0].Lastname2;
-
-            console.log(dir);
-            console.log(ref);
-            if (dir == ref) {
-                dir2 = direc[0];
+        let ref = $(title).text().trim();
+        if (ref == "Actores" || ref == "Directores" || ref == "Accion" || ref == "Romance" || ref == "Misterio") {
+            console.log("actori");
+            this.#VideoSystemView.bindProductsCategoryList(
+                this.handleProductionsCategoryList
+            );
+            this.#VideoSystemView.bindProducts(
+                this.handleProduction
+            );
+            this.#VideoSystemView.bindProductsList(
+                this.handleAletProductionList
+            );
+            this.#VideoSystemView.bindActorListInMenu(
+                this.handleActorList
+            );
+            this.#VideoSystemView.bindDirectorListInMenu(
+                this.handleDirectorList
+            );
+        } else {
+            if (ref != "Abrir en ventana") {
+                for (let direc of this.#Videosystem.directors) {
+                    dir = direc[0].Name.trim() + " " + direc[0].Lastname1.trim() + " " + direc[0].Lastname2.trim();
+                    dir=dir.trim();
+                    console.log(dir);
+                    console.log(ref);
+                    if (dir == ref) {
+                        dir2 = direc[0];
+                    }
+                }
+                console.log(dir2);
+                // console.log("entra en el handle actor")
+                this.#VideoSystemView.listDirector(dir2, this.#Videosystem);
+                this.#VideoSystemView.bindProductsPerson(
+                    this.handleProductionPerson
+                );
+            } else {
+                this.#VideoSystemView.bindProductsCategoryList(
+                    this.handleProductionsCategoryList
+                );
+                this.#VideoSystemView.bindProducts(
+                    this.handleProduction
+                );
+              /*   this.#VideoSystemView.bindWindows(
+                    //this.handleWindow
+                    this.handleShowProductInNewWindow
+                ); */
             }
         }
-        console.log(dir2);
-       // console.log("entra en el handle actor")
-        this.#VideoSystemView.listDirector(dir2, this.#Videosystem);
-        this.#VideoSystemView.bindProductsPerson(
-            this.handleProductionPerson
-        );
+
     }
     handleActorProd = (title) => {
         let actor2;
@@ -320,47 +380,118 @@ class VideoSystemController {
         console.log(title);
         console.log($(title).text());
         //console.log($(title).parent().children().children().children().children().children().text());
-        let ref=$(title).text();
-        for (let actor of this.#Videosystem.actors) {
-            act=actor[0].Name +" "+actor[0].Lastname1+" "+ actor[0].Lastname2;
-
-            console.log(act);
-            console.log(ref);
-            if (act == ref) {
-                actor2 = actor[0];
+        let ref = $(title).text().trim();
+        if (ref == "Actores" || ref == "Directores" || ref == "Accion" || ref == "Romance" || ref == "Misterio") {
+            console.log("actori");
+            this.#VideoSystemView.bindProductsCategoryList(
+                this.handleProductionsCategoryList
+            );
+            /* this.#VideoSystemView.bindProducts(
+                this.handleProduction
+            ); */
+            this.#VideoSystemView.bindProductsList(
+                this.handleAletProductionList
+            );
+            this.#VideoSystemView.bindActorListInMenu(
+                this.handleActorList
+            );
+            this.#VideoSystemView.bindDirectorListInMenu(
+                this.handleDirectorList
+            );
+        } else {
+            if (ref != "Abrir en ventana") {
+                for (let actor of this.#Videosystem.actors) {
+                    act = actor[0].Name.trim() + " " + actor[0].Lastname1.trim() + " " + actor[0].Lastname2.trim();
+                    act=act.trim();
+                    console.log(act);
+                    console.log(ref);
+                    if (act == ref) {
+                        console.log("entro en el igual")
+                        actor2 = actor[0];
+                    }
+                }
+                console.log(actor2);
+                // console.log("entra en el handle actor")
+                this.#VideoSystemView.listActor(actor2, this.#Videosystem);
+                this.#VideoSystemView.bindProductsPerson(
+                    this.handleProductionPerson
+                );
+            } else {
+               /*  console.log("Entro");
+                this.#VideoSystemView.bindWindows(
+                   // this.handleWindow
+                   this.handleShowProductInNewWindow
+                ); */
             }
         }
-        console.log(actor2);
-       // console.log("entra en el handle actor")
-        this.#VideoSystemView.listActor(actor2, this.#Videosystem);
-        this.#VideoSystemView.bindProductsPerson(
-            this.handleProductionPerson
-        );
+
     }
     handleProductionPerson = (title) => {
         let actor2;
         let act;
         console.log(title);
-        console.log($(title).text());
+        console.log($(title).text().trim());
         //console.log($(title).parent().children().children().children().children().children().text());
-        let ref=$(title).text();
-        for (let prod of this.#Videosystem.productions) {
+        let ref = $(title).text().trim();
+        if (ref == "Actores" || ref == "Directores" || ref == "Accion" || ref == "Romance" || ref == "Misterio") {
+            console.log("actori");
+            this.#VideoSystemView.bindActorListInMenu(
+                this.handleActorList
+            );
+            this.#VideoSystemView.bindDirectorListInMenu(
+                this.handleDirectorList
+            );
+            this.#VideoSystemView.bindProductsCategoryList(
+                this.handleProductionsCategoryList
+            );
+            this.#VideoSystemView.bindProducts(
+                this.handleProduction
+            );
+            this.#VideoSystemView.bindProductsList(
+                this.handleAletProductionList
+            );
+        } else {
+            if (ref != "Abrir en ventana") {
+                for (let prod of this.#Videosystem.productions) {
 
-            console.log(prod.Title);
-            console.log(ref);
-            if (prod.Title == ref) {
-                actor2 = prod;
+                    console.log(prod.Title);
+                    console.log(ref);
+                    if (prod.Title == ref) {
+                        actor2 = prod;
+                    }
+                }
+                console.log(actor2);
+                // console.log("entra en el handle actor")
+                this.#VideoSystemView.listProduction(actor2, this.#Videosystem);
+                this.#VideoSystemView.bindActorsProd(
+                    this.handleActorProd,
+                    this.handleShowProduct
+                );
+            } else {
+              /*   console.log("entro en production person");
+                this.#VideoSystemView.bindWindows(
+                    //this.handleWindow
+                    this.handleShowProductInNewWindow
+                ); */
             }
         }
-        console.log(actor2);
-       // console.log("entra en el handle actor")
-        this.#VideoSystemView.listProduction(actor2, this.#Videosystem);
-        this.#VideoSystemView.bindActorsProd(
-            this.handleActorProd
-        );
     }
     handleActorList = () => {
-
+        this.#VideoSystemView.bindProductsCategoryList(
+            this.handleProductionsCategoryList
+        );
+        this.#VideoSystemView.bindProducts(
+            this.handleProduction
+        );
+        this.#VideoSystemView.bindProductsList(
+            this.handleAletProductionList
+        );
+        this.#VideoSystemView.bindActorListInMenu(
+            this.handleActorList
+        );
+        this.#VideoSystemView.bindDirectorListInMenu(
+            this.handleDirectorList
+        );
         this.#VideoSystemView.listActors(this.#Videosystem.actors, this.#Videosystem);
         this.#VideoSystemView.bindActors(
             this.handleActor
@@ -371,8 +502,36 @@ class VideoSystemController {
 
         console.log(this.#Videosystem.productions);
         this.#VideoSystemView.showAletProductions(this.#Videosystem.productions);
+        this.#VideoSystemView.bindActorListInMenu(
+            this.handleActorList
+        );
+        this.#VideoSystemView.bindDirectorListInMenu(
+            this.handleDirectorList
+        );
+        this.#VideoSystemView.bindProductsCategoryList(
+            this.handleProductionsCategoryList
+        );
+        this.#VideoSystemView.bindProducts(
+            this.handleProduction
+        );
+        this.#VideoSystemView.bindProductsList(
+            this.handleAletProductionList
+        );
     }
     handleDirectorList = () => {
+        this.#VideoSystemView.bindProductsCategoryList(
+            this.handleProductionsCategoryList
+        );
+        this.#VideoSystemView.bindProducts(
+            this.handleProduction
+        );
+        this.#VideoSystemView.bindProductsList(
+            this.handleAletProductionList
+        );
+        this.#VideoSystemView.bindActorListInMenu(
+            this.handleActorList
+        );
+        
         /*         let category2;
                 let nom;
                 console.log(title.text);
